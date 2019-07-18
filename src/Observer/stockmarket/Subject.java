@@ -27,10 +27,7 @@ public class Subject {
     }
 
     public void notifyUpdate() {
-    	for (int i = 0; i <= observers.size(); i++ ) {
-    		observers.get(i).update(this);
-    	}
-        
+    	 System.out.println("Notify Update");
     }
 }
 

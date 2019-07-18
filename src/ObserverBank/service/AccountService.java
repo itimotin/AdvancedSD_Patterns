@@ -6,11 +6,13 @@ import ObserverBank.dao.AccountDAO;
 import ObserverBank.dao.IAccountDAO;
 import ObserverBank.domain.Account;
 import ObserverBank.domain.Customer;
+import ObserverBank.domain.Subject;
 
 
 public class AccountService implements IAccountService {
 	private IAccountDAO accountDAO;
 
+	private Subject topic;
 	
 	public AccountService(){
 		accountDAO=new AccountDAO();
@@ -53,5 +55,21 @@ public class AccountService implements IAccountService {
 		fromAccount.transferFunds(toAccount, amount, description);
 		accountDAO.updateAccount(fromAccount);
 		accountDAO.updateAccount(toAccount);
+	}
+
+	@Override
+	public void update(Object o) {
+		// TODO Auto-generated method stub
+		System.out.println("Update");
+//		String msg = (String) topic.getUpdate(this);
+//		if
+	}
+
+	@Override
+	public void setSubject(Subject subj) {
+		// TODO Auto-generated method stub
+		System.out.println("SetSubject");
+		this.topic = subj;
+		
 	}
 }

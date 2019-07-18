@@ -4,17 +4,10 @@ import ObserverBank.IObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subject {
-	public List<IObserver> observers = new ArrayList<>();
+public interface Subject {
 	
-	void attach(IObserver ob) {
-		observers.add(ob);
-	}
+	void attach(IObserver ob) ;
 	
-	void dettach(IObserver ob) {
-		observers.remove(ob);
-	}
-	void notiffy() {
-		System.out.println("Your Account is Updated.......");
-	}
+	void dettach(IObserver ob) ;
+	void notiffyObservers();
 }

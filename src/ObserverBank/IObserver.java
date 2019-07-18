@@ -1,5 +1,9 @@
 package ObserverBank;
 
+import ObserverBank.domain.Subject;
+
 public interface IObserver {
-    void update();
+    public void update(Object o);
+    
+    public void setSubject(Subject subj);
 }

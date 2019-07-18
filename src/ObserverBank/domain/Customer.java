@@ -17,8 +17,15 @@ public class Customer implements IObserver {
 		this.name = name;
 	}
 
+
 	@Override
-	public void update() {
+	public void update(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSubject(Subject subj) {
 		// TODO Auto-generated method stub
 		
 	}

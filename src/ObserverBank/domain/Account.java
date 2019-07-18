@@ -2,26 +2,25 @@ package ObserverBank.domain;
 
 import java.util.*;
 import ObserverBank.domain.Subject;
-import ObserverBank.IObserver;;
+import ObserverBank.IObserver;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Account implements Subject {
+	
+	private List<IObserver> observers;
+	
+	
 	long accountnumber;
 	Collection<AccountEntry> entryList = new ArrayList<AccountEntry>();
 	Customer customer;
-
-	private Observer observer;
 	
-	public Account (long accountnr){
-		this.accountnumber = accountnr;
-		this.observer = new Observer() {
-			
-			@Override
-			public void update(Observable o, Object arg) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
+	
+	public Account(long accountNumber) {
+		this.accountnumber = accountNumber;
+		this.observers = new ArrayList<>();
 	}
+
 	public long getAccountnumber() {
 		return accountnumber;
 	}
@@ -66,20 +65,39 @@ public class Account implements Subject {
 	public Collection<AccountEntry> getEntryList() {
 		return entryList;
 	}
+	
+	
+	
+	private boolean changed;
+	private final Object MUTEX = new Object();
+	
 	@Override
-	public void attach() {
+	public void attach(IObserver ob) {
 		// TODO Auto-generated method stub
-		
+		if (ob == null) throw new NullPointerException("Null Observer");
+		synchronized(MUTEX){
+			if (!observers.contains(ob)) observers.add(ob);	
+		}
+	}
+
+	@Override
+	public void dettach(IObserver ob) {
+		// TODO Auto-generated method stub
+		synchronized(MUTEX) {
+			observers.remove(ob);
+		}
 	}
 	@Override
-	public void dettach() {
+	public void notiffyObservers() {
 		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void notiffy() {
-		// TODO Auto-generated method stub
-		
+		List<IObserver> observerLocal = null;
+		synchronized (MUTEX) {
+			if (!changed) {
+				return ;
+			}
+			observerLocal = new ArrayList<>(this.observers);
+			this.changed = false;
+		}
 	}
 
 }
